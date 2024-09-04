@@ -14,7 +14,7 @@ public class ParkingSlot {
     private Long id;
 
     @Column(name = "slot_number", nullable = false)
-    private String slotNumber;
+    private Long slotNumber;
 
     @Column(name = "date", nullable = false)
     private LocalDate date=LocalDate.now();
@@ -25,7 +25,7 @@ public class ParkingSlot {
     @Column(name = "guest_name")
     private String guestName;
 
-	public ParkingSlot(Long id, String slotNumber, LocalDate date, String guestName) {
+	public ParkingSlot(Long id, Long slotNumber, LocalDate date, String guestName) {
 		super();
 		this.id = id;
 		this.slotNumber = slotNumber;
@@ -46,11 +46,11 @@ public class ParkingSlot {
 		this.id = id;
 	}
 
-	public String getSlotNumber() {
+	public Long getSlotNumber() {
 		return slotNumber;
 	}
 
-	public void setSlotNumber(String slotNumber) {
+	public void setSlotNumber(Long slotNumber) {
 		this.slotNumber = slotNumber;
 	}
 

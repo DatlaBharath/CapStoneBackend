@@ -2,6 +2,7 @@ package com.payment.demo.controller;
 
 import java.util.List;
 
+import com.payment.demo.dto.RazorpayResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,14 @@ public class PaymentController {
         PaymentHistory createdHistory = paymentService.createPaymentHistory(paymentHistory);
         return ResponseEntity.ok(createdHistory);
     }
+    @PostMapping("/create")
+    public ResponseEntity<RazorpayResponse> createPaymentLink(
+            @RequestParam int amount,
+            @RequestParam String description,
+            @RequestParam String email) {
 
+        return ResponseEntity.ok().body(paymentService.createPaymentLink(amount, description, email));
+    }
     // Other endpoints
     @GetMapping("/requests")
     public ResponseEntity<List<PaymentRequest>> getPaymentRequest(){

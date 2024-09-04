@@ -1,32 +1,54 @@
 spring:
+
   application:
+
     name: LBGateway
+
   cloud:
+
     gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-        - id: payment-route
-          uri: lb://PAYMENT
-          predicates:
-            - Path=/payments/**
-        - id: user-route
-          uri: lb://USER
-          predicates:
-            - Path=/users/**
-        - id: anouncements-route
-          uri: lb://ANOUNCEMENTS
-          predicates:
-            - Path=/api/groups/**
-        - id: pakingslot-route
-          uri: lb://PAKINGSLOT
-          predicates:
-            - Path=/parking-slots/**
+
+      mvc:
+
+        routes:
+
+          - id: payment-route
+
+            uri: lb://PAYMENT
+
+            predicates:
+
+              - Path=/payments/**
+
+          - id: user-route
+
+            uri: lb://USER
+
+            predicates:
+
+              - Path=/users/**
+
+          - id: anouncements-route
+
+            uri: lb://ANOUNCEMENTS
+
+            predicates:
+
+              - Path=/api/groups/**
+
+          - id: pakingslot-route
+
+            uri: lb://PAKINGSLOT
+
+            predicates:
+
+              - Path=/parking-slots/**
+
+
 
 server:
   port: 7777
-  
+
 management:
   endpoints:
     web:

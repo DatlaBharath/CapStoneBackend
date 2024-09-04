@@ -1,4 +1,4 @@
-package com.livingsync.annoucements.service;
+package com.livingsync.annoucements.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,11 +9,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class User {
-	
+public class UserResponse {
     private Long id;
-    private String email;
+    private  String email;
     private String password;
     private String fullName;
-    private Long mobile;
+    private String Mobile;
 }

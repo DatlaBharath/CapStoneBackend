@@ -1,15 +1,10 @@
 package com.livingsync.annoucements.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,27 +15,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Group {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String content;
-    private LocalDateTime timestamp;
+    private String name;
 
-    private Long createdBy;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "group_id")
+    private List<Message> announcementMessages = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Poll> polls;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "group_id")
+    private List<Message> discussionMessages = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<DiscussionGroup> discussionGroups;
+    @ElementCollection
+    @CollectionTable(name = "group_admins", joinColumns = @JoinColumn(name = "group_id"))
+    @Column(name = "admin_id")
+    private List<Long> admins = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Message> messages;
+    @ElementCollection
+    @CollectionTable(name = "group_users", joinColumns = @JoinColumn(name = "group_id"))
+    @Column(name = "user_id")
+    private List<Long> users = new ArrayList<>();
 
-    private List<Long> admins;
-
-    private List<Long> members;
+    @ElementCollection
+    @CollectionTable(name = "group_tags", joinColumns = @JoinColumn(name = "group_id"))
+    @Column(name = "tag")
+    private List<String> tags = new ArrayList<>();
 
     // Getters and setters
 }
